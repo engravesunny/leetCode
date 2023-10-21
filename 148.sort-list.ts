@@ -5,7 +5,6 @@
  * [148] 排序链表
  */
 
-
 // @lcpr-template-start
 
 // @lcpr-template-end
@@ -23,50 +22,49 @@
  */
 
 function sortList(head: ListNode | null): ListNode | null {
-    if(head===null||head.next===null) return head;
-    return mergeSort(head);
-};
-function mergeSort(head: ListNode | null) {
-    if(head.next!==null) {
-        let center = getCenter(head);
-        let next = center.next;
-        center.next = null;
-        let left = mergeSort(head);
-        let right = mergeSort(next);
-        head = merge(left,right);
-    }
-    return head;
+  if (head === null || head.next === null) return head;
+  return mergeSort(head);
 }
-function merge(left:ListNode|null,right:ListNode|null) {
-    let newHead = new ListNode();
-    let cur = newHead;
-    while(left !== null && right !== null) {
-        if(left.val < right.val) {
-            cur.next = left;
-            left = left.next;
-        } else {
-            cur.next = right;
-            right = right.next;
-        }
-        cur = cur.next;
-    }
-    cur.next = left?left:right;
-    return newHead.next;
-}
-function getCenter(head:ListNode|null) {
-    let slow = head, fast = head.next;
-    while(fast!==null&&fast.next!==null) {
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-    return slow;
+function mergeSort(head: ListNode | null): ListNode | null {
+  if (head === null || head.next === null) return head;
+  let center = findCenter(head);
+  if (center?.next == null) return center;
+  let right = center?.next as ListNode;
+  let left = head;
+  Object.defineProperty(center, "next", {
+    value: null,
+  });
+  return merge(mergeSort(left), mergeSort(right));
 }
 
+function merge(left: ListNode | null, right: ListNode | null): ListNode | null {
+  let newHead = new ListNode();
+  let cur = newHead;
+  while (left !== null && right !== null) {
+    if (left.val < right.val) {
+      cur.next = left;
+      left = left.next;
+    } else {
+      cur.next = right;
+      right = right.next;
+    }
+    cur = cur.next as ListNode;
+  }
+  cur.next = left ? left : right;
+  return newHead.next;
+}
 
+function findCenter(head: ListNode | null) {
+  let slow = head,
+    fast = head?.next;
+  while (fast && fast.next) {
+    slow = slow?.next as ListNode;
+    fast = fast.next.next;
+  }
+  return slow;
+}
 
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -82,4 +80,3 @@ function getCenter(head:ListNode|null) {
 // @lcpr case=end
 
  */
-

@@ -5,7 +5,6 @@
  * [25] K 个一组翻转链表
  */
 
-
 // @lcpr-template-start
 
 // @lcpr-template-end
@@ -23,29 +22,30 @@
  */
 
 function reverseKGroup(head: ListNode | null, k: number): ListNode | null {
-    let a = head,b=head;
-    for(let i=0;i<k;i++) {
-        if(b===null)return head;
-        b = b.next;
-    }
-    let newHead = reverse(a,b);
-    a.next = reverseKGroup(b,k);
-    return newHead;
+  if (head === null || head.next === null) return head;
+  let cur = head;
+  for (let i = 0; i < k; i++) {
+    if (cur === null) return head;
+    cur = cur.next;
+  }
+  let res = reverseList(head, cur);
+  head.next = reverseKGroup(cur, k);
+  return res;
+}
+function reverseList(a: ListNode | null, b: ListNode | null) {
+  let prev: any,
+    cur = a,
+    next = a;
+  while (cur !== b) {
+    next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
+  }
+  return prev;
+}
 
-    function reverse(a:ListNode|null,b:ListNode|null = null) {
-        let prev:any,cur=a,next=a;
-        while(cur !== b) {
-            next = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = next;
-        } 
-        return prev;    
-    }
-};
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -57,4 +57,3 @@ function reverseKGroup(head: ListNode | null, k: number): ListNode | null {
 // @lcpr case=end
 
  */
-

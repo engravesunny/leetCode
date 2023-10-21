@@ -5,7 +5,6 @@
  * [141] 环形链表
  */
 
-
 // @lcpr-template-start
 
 // @lcpr-template-end
@@ -23,20 +22,19 @@
  */
 
 function hasCycle(head: ListNode | null): boolean {
-    if(head === null|| head.next === null) return false;
-    let slow = head,fast = head.next;
-    while(true) {
-        if(fast===null||fast.next===null) {
-            return false;
-        }
-        if(slow===fast) return true;
-        slow = slow.next;
-        fast = fast.next.next;
+  if (head === null || head.next === null) return false;
+  let slow = head,
+    fast = head.next;
+  while (true) {
+    if (fast === null || fast.next === null) {
+      return false;
     }
-};
+    if (slow === fast) return true;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+}
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -52,4 +50,3 @@ function hasCycle(head: ListNode | null): boolean {
 // @lcpr case=end
 
  */
-

@@ -5,7 +5,6 @@
  * [23] 合并 K 个升序链表
  */
 
-
 // @lcpr-template-start
 
 // @lcpr-template-end
@@ -23,37 +22,28 @@
  */
 
 function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
-    // 分治
-    if(lists.length === 0) return null;
+  // 分治
+  if (lists.length === 0) return null;
+  return mergeArr(lists);
+}
+function mergeArr(lists: Array<ListNode | null>) {
+  if (lists.length <= 1) return lists[0];
+  let index = Math.floor(lists.length / 2);
+  return merge(mergeArr(lists.slice(0, index)), mergeArr(lists.slice(index)));
+}
+function merge(left: ListNode | null, right: ListNode | null) {
+  if (left === null) return right;
+  if (right === null) return left;
+  if (left.val < right.val) {
+    left.next = merge(left.next, right);
+    return left;
+  } else {
+    right.next = merge(left, right.next);
+    return right;
+  }
+}
 
-
-    function mergeArr(lists:Array<ListNode | null>):ListNode | null {
-        if(lists.length <= 1) return lists[0];
-        let index = Math.floor(lists.length / 2);
-        let left = mergeArr(lists.slice(0,index));
-        let right = mergeArr(lists.slice(index))
-        return merge(left, right);
-    }
-
-    function merge(l1:ListNode|null,l2:ListNode|null):ListNode | null {
-        if(l1 === null) return l2;
-        if(l2 === null) return l1;
-        if(l1.val < l2.val) {
-            l1.next = merge(l1.next, l2);
-            return l1;
-        } else {
-            l2.next = merge(l1, l2.next);
-            return l2;
-        }
-    }
-
-    return mergeArr(lists);
-
-
-};
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -69,4 +59,3 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
 // @lcpr case=end
 
  */
-

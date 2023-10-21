@@ -5,7 +5,6 @@
  * [206] 反转链表
  */
 
-
 // @lcpr-template-start
 
 // @lcpr-template-end
@@ -23,25 +22,20 @@
  */
 
 function reverseList(head: ListNode | null): ListNode | null {
-    let prev = null, cur = head, next = head;
-    while(cur!==null) {
-        next = cur.next;
-        cur.next = prev;
-        prev = cur;
-        cur = next;
-    }
-    return prev;
-    // if(head === null || head.next === null) {
-    //     return head;
-    // }
-    // let last = reverseList(head.next);
-    // head.next.next = head;
-    // head.next = null;
-    // return last;
-};
+  // 迭代
+  if (head === null || head.next === null) return head;
+  let prev: any = null,
+    cur = head,
+    next = head;
+  while (cur !== null) {
+    next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
+  }
+  return prev;
+}
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -57,4 +51,3 @@ function reverseList(head: ListNode | null): ListNode | null {
 // @lcpr case=end
 
  */
-
